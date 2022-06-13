@@ -8,7 +8,12 @@ public class MemberServiceImpl implements MemberService {
      * 현재 문제점: MemberServiceImpl이 MemberRepository(인터페이스)와 MemoryMemberRepository(구현체) 모두 의존하고 있다.
      * 즉, 의존관계가 인터페이스 뿐만 아니라 구현까지 모두 의존하는 문제점이 있으며, DIP를 위반하고 있다.
      */
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    // 생성자를 통해 MemberRepository의 구현체를 받음 = 생성자 주입
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     @Override
     public void join(Member member) {
